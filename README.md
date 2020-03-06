@@ -6,4 +6,4 @@ Group project for software engineering practice - Northumbria University.
 
 ### Instructions
 
-1) Unzip the datasets in the Data folder
+1) 
