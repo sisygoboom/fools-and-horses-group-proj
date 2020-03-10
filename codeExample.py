@@ -19,7 +19,6 @@ data.head(10)
 
 with open('Data/firstnames.txt') as f:
     firstnames = f.read().splitlines()
-print(firstnames)
 
 data.shape
 
