@@ -13,10 +13,13 @@ from sklearn import metrics
 import warnings
 warnings.filterwarnings('ignore')
 
-
+#load data
 data = pd.read_csv("Data/wiki_movie_plots_deduped.csv", delimiter=',')
 data.head(10)
 
+with open('Data/firstnames.txt') as f:
+    firstnames = f.read().splitlines()
+print(firstnames)
 
 data.shape
 
@@ -28,8 +31,7 @@ data.dtypes
 X_train, X_test, y_train, y_test = train_test_split(data.Plot, data.Genre, test_size=0.2, random_state=0)
 
 #create list of stop words
-my_additional_stop_words = []
-stop_words = ENGLISH_STOP_WORDS.union(my_additional_stop_words)
+stop_words = ENGLISH_STOP_WORDS.union(firstnames)
 
 # make the pipeline
 text_pipe = Pipeline([
