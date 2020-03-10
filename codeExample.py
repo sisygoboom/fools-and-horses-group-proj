@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from sklearn.naive_bayes import MultinomialNB
@@ -34,7 +35,7 @@ stop_words = ENGLISH_STOP_WORDS.union(firstnames)
 
 # make the pipeline
 text_pipe = Pipeline([
-    ('vect', CountVectorizer(stop_words=stop_words, lowercase=True)),
+    ('vect', TfidfVectorizer(stop_words=stop_words, lowercase=True)),
     ('tfidf', TfidfTransformer()),
     ('clf', MultinomialNB()),
 ])
