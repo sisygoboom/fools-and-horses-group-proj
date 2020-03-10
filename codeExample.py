@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
@@ -26,9 +27,13 @@ data.dtypes
 # split data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(data.Plot, data.Genre, test_size=0.2, random_state=0)
 
+#create list of stop words
+my_additional_stop_words = []
+stop_words = ENGLISH_STOP_WORDS.union(my_additional_stop_words)
+
 # make the pipeline
 text_pipe = Pipeline([
-    ('vect', CountVectorizer(stop_words='english')),
+    ('vect', CountVectorizer(stop_words=stop_words)),
     ('tfidf', TfidfTransformer()),
     ('clf', MultinomialNB()),
 ])
