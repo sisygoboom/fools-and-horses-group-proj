@@ -34,7 +34,7 @@ stop_words = ENGLISH_STOP_WORDS.union(firstnames)
 
 # make the pipeline
 text_pipe = Pipeline([
-    ('vect', CountVectorizer(stop_words=stop_words)),
+    ('vect', CountVectorizer(stop_words=stop_words, lowercase=True)),
     ('tfidf', TfidfTransformer()),
     ('clf', MultinomialNB()),
 ])
