@@ -21,10 +21,10 @@ data.head(10)
 with open('Data/firstnames.txt') as f:
     firstnames = f.read().splitlines()
 
-data.shape
+print(data.shape)
 
 
-data.dtypes
+print(data.dtypes)
 
 
 # split data into training and test sets
@@ -70,6 +70,7 @@ search = GridSearchCV(text_pipe, grid_params)
 search.fit(X_train, y_train);
 print(search.best_params_)
 print(search.score(X_test, y_test))
+print(search.error_score, search.best_estimator_, search.best_score_)
 
 
 #false prediction
