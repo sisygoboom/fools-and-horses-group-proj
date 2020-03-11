@@ -16,6 +16,7 @@ warnings.filterwarnings('ignore')
 
 #load data
 data = pd.read_csv("Data/wiki_movie_plots_deduped.csv", delimiter=',')
+data.Genre = [i.replace('-', ',').replace('/',',').replace(' ',',').split(',') for i in data.Genre]
 data.head(10)
 
 with open('Data/firstnames.txt') as f:
