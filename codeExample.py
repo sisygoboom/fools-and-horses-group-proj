@@ -16,8 +16,34 @@ warnings.filterwarnings('ignore')
 
 #load data
 data = pd.read_csv("Data/wiki_movie_plots_deduped.csv", delimiter=',')
-data.Genre = [i.replace('-', ',').replace('/',',').replace(' ',',').split(',') for i in data.Genre]
+data.Genre = [i.replace('-', ',')
+              .replace('/',',')
+              .replace(' ',',')
+              .strip('(')
+              .strip(')')
+              .strip(';')
+              .split(',') for i in data.Genre]
+popularity = {}
+for movie in data.Genre:
+    for genre in movie:
+        if(genre in  popularity.keys()):
+            popularity[genre] += 1
+        else:
+            popularity[genre] = 1
+        
+print(popularity)
+
+for i, genres in enumerate(data.Genre):
+    print(i, genres)
+    highest = [genres[0], popularity[genres[0]]]
+    for genre in genres:
+        if highest[1] < popularity[genre]:
+            highest = [genre, popularity[genre]]
+    print(highest)
+    data.Genre[i] = highest[0]
+        
 data.head(10)
+print(data.Genre)
 
 with open('Data/firstnames.txt') as f:
     firstnames = f.read().splitlines()
