@@ -20,6 +20,7 @@ class Dataset:
         self.data.Genre = [i.replace('-', ',')
                       .replace('/',',')
                       .replace(' ',',')
+                      .replace('–', ',')
                       .strip('(')
                       .strip(')')
                       .strip(';')
