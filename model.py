@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
@@ -12,12 +11,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn import metrics
 import warnings
-import loader
+import dataLoader
 warnings.filterwarnings('ignore')
 
 #load data
-l = loader.Dataset()
+l = dataLoader.Dataset()
 data = l.load_stored()
+
         
 data.head(10)
 print(data.Genre)

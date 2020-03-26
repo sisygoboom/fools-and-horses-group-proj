@@ -16,6 +16,9 @@ class Dataset:
         self.fit_to_common_genre(popularity)
         return self.data
     
+    def remove_bollywood(self):
+        self.data = self.data[self.data.Origin/Ethnicity != "Bollywood"]
+    
     def sanitize(self):
         self.data.Genre = [i.replace('-', ',')
                       .replace('/',',')
