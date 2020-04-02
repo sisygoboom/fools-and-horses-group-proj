@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
     <h1>Send a movie plot to test the API</h1>
     
 <!--Form to test sending requests to api-->
-    <form action="http://127.0.0.1:5000/prediction" method="POST">
-        <input type="text" name="plot">
-        <input type="submit" value="predict">
-    </form>
+    <input type="text" name="plot">
+    <input id="submitText" type="submit">
 
+    <div id="response"></div>
 </body>
+
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>-->
+<script>
+    $(() => {
+        $('#submitText').on('click', function () {
+            let plot = $('[name=plot]').val()
+            console.log(plot);
+            $.ajax({
+                url: 'http://127.0.0.1:5000/prediction',
+                type: 'post',
+                data: {plot},
+                success: (res) => {
+                    $('#response').html(res[1][0])
+                }
+            })
+        })
+    });
+
+    function sendRequest(e) {
+        e.preventDefault();
+        let plot = $('[name=plot]').val();
+        console.log(plot);
+
+    }
+</script>
 </html>
