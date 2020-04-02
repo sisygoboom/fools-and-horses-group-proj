@@ -1,6 +1,6 @@
 import numpy as np 
 from flask import Flask, jsonify, request
-import fileLoader as fl
+import modelLoader as fl
 
 
 load = fl.fileManager()
