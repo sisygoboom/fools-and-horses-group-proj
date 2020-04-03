@@ -133,3 +133,4 @@ def evaluate_performance_training_set(text_pipe, X_train, y_train):
 # calculate the precision, recall and f1-score
 def get_f1_score(text_pipe, X_train, y_train):
     print(metrics.classification_report(y_train, text_pipe.predict(X_train)))
+
