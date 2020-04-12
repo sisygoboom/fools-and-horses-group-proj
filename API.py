@@ -10,7 +10,7 @@ app= Flask(__name__)
 cors = CORS(app)
 
 #load th previously trained model from file 
-model = load.loadIt("./Models/version2.gz")
+model = load.loadIt("./Models/version4.gz")
 
 #predict is the end point, decorator
 @app.route('/prediction', methods=["POST"])
