@@ -10,11 +10,17 @@ import webbrowser, os, API
 
 print("Instantiating model...")
 mdl = Model()
+
 print("Training model...")
 mdl.train()
+
 print("Running tests...")
 for k, v in mdl.test().items():
     print(k + ': ' + str(v))
+
+body = input("Enter a body of text here for genre prediction:\n")
+print(mdl.predict_custom(body))
+
 print("Pickling the model...")
 mdl.ml.zipIt(mdl.get_pipe(), './Models/demonstration')
 

@@ -43,9 +43,6 @@ class Model:
         return self.text_pipe
     
     def test(self):
-        # Prediction test
-        print(self.text_pipe.predict(self.X_test))
-        
         # Evaluate the performance on test set
         grid_params = {
             'vect__stop_words': [None, 'english'],
@@ -62,6 +59,11 @@ class Model:
             'best_parameters': search.best_params_
         }
         
+    def predict_custom(self, text):        
+        return self.text_pipe.predict([text])
+    
+    def predict_test_data(self):
+        return self.text_pipe.predict(self.X_test)
         
         
 
