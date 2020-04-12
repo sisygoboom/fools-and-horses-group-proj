@@ -9,7 +9,7 @@ from model import Model
 import webbrowser, os, API
 
 print("Instantiating model...")
-mdl = Model()
+mdl = Model(stop_words=False)
 
 print("Training model...")
 mdl.train()

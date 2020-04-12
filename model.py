@@ -13,16 +13,18 @@ warnings.filterwarnings('ignore')
 from modelLoader import fileManager
 
 class Model:
-    def __init__(self, dataset_path="./Data/balancedData.pickle", exclude_fnames=True):
+    def __init__(self, dataset_path="./Data/balancedData.pickle", stop_words=True, exclude_fnames=True):
         self.ml = fileManager()
         self.data = self.ml.loadIt(dataset_path)
         
         # define stopwords
-        self.stop_words = ENGLISH_STOP_WORDS
-        if exclude_fnames:
-            with open('Data/firstnames.txt') as f:
-                firstnames = f.read().splitlines()
-            self.stop_words.union(firstnames)
+        self.stop_words = None
+        if stop_words:
+            self.stop_words = ENGLISH_STOP_WORDS
+            if exclude_fnames:
+                with open('Data/firstnames.txt') as f:
+                    firstnames = f.read().splitlines()
+                self.stop_words.union(firstnames)
         
     def train(self, test_size=0.2):
         # separate training and testing data
