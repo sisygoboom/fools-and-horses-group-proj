@@ -1,4 +1,3 @@
-import numpy as np 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import modelLoader as fl
