@@ -13,7 +13,8 @@ mdl = Model()
 print("Training model...")
 mdl.train()
 print("Running tests...")
-mdl.test()
+for k, v in mdl.test().items():
+    print(k + ': ' + str(v))
 print("Pickling the model...")
 mdl.ml.zipIt(mdl.get_pipe(), './Models/demonstration')
 

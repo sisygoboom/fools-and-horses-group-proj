@@ -54,19 +54,14 @@ class Model:
         search = GridSearchCV(self.text_pipe, grid_params)
         search.fit(self.X_train, self.y_train)
         
+        return {
+            'best_score': search.best_score_,
+            'best_estimator': search.best_estimator_,
+            'error_score': search.error_score,
+            'score': search.score(self.X_test, self.y_test),
+            'best_parameters': search.best_params_
+        }
         
-        print("Best parameters: ", search.best_params_)
-        print("Score: ",search.score(self.X_test, self.y_test))
-        print("Error Score: ", search.error_score)
-        print("Best estimator: ", search.best_estimator_)
-        print("Best Score: ", search.best_score_)
-        
-        #false prediction
-        text = [
-            "Gang kill police killed father man men brother family kills",
-        ]
-        
-        print("test prediction: ", self.text_pipe.predict(text))
         
         
 
