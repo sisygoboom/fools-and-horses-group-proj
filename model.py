@@ -44,11 +44,11 @@ class Model:
         self.text_pipe = Pipeline([
             ('vect', TfidfVectorizer(stop_words=self.stop_words, lowercase=True)),
             ('tfidf', TfidfTransformer(use_idf=True)),
-            ('clf', SGDClassifier(loss='modified_huber')),           # accuracy at last test: 76%
-            #('clf', KNeighborsClassifier()),   # accuracy at last test: 46%
-            #('clf', RandomForestClassifier()), # accuracy at last test: 62%
-            #('clf', MultinomialNB()),          # accuracy at last test: 54%
-            #('clf', LinearRegression()),       # accuracy at last test: 70%
+            ('clf', SGDClassifier(loss='modified_huber')), # accuracy at last test: 78%
+            #('clf', KNeighborsClassifier()),              # accuracy at last test: 46%
+            #('clf', RandomForestClassifier()),            # accuracy at last test: 62%
+            #('clf', MultinomialNB()),                     # accuracy at last test: 54%
+            #('clf', LinearRegression()),                  # accuracy at last test: 70%
         ])
         
         #fit model with training data
