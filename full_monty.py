@@ -20,7 +20,6 @@ if train_fresh == 'y':
     
     print("Training model...")
     modelObj.train()
-    mdl = modelObj.get_pipe()
     
     print("Running tests...")
     for k, v in modelObj.test().items():
