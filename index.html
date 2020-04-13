@@ -16,8 +16,13 @@
 </head>
 <body background="img/348542.jpg">
     <div class="container">
+        <span class="float-right mt-2">
+            <input type="text" id="wikiMovie" style="width: 300px;" class="form-control" placeholder="Search wikipedia for a movie...">
+            <input type="submit" id="wikiSearch" class="form-control">
+        </span>
         <h1>Synopsis Analyser</h1>
         <sup>Use machine learning to predict what genre of movie a body of text might be talking about.</sup>
+
 
         <hr>
 
@@ -44,7 +49,11 @@
                     $('#response').html(res[1][0])
                 }
             })
-        })
+        });
+
+        $('#wikiSearch').on('click', function () {
+            window.open('https://en.wikipedia.org/w/index.php?search=' + encodeURI($('#wikiMovie').val()), '_blank')
+        });
     });
 
     function sendRequest(e) {
