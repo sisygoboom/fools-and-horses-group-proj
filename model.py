@@ -8,14 +8,20 @@ from sklearn.linear_model import SGDClassifier#, LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
+import numpy
 import warnings
 warnings.filterwarnings('ignore')
 from modelLoader import fileManager
 
 class Model:
-    def __init__(self, dataset_path="./Data/balancedData.pickle", stop_words=True, exclude_fnames=True):
+    def __init__(self, dataset_path="./Data/balancedData.pickle", model_path=None, stop_words=True, exclude_fnames=True):
         self.ml = fileManager()
-        self.data = self.ml.loadIt(dataset_path)
+        
+        if model_path != None:
+            self.text_pipe = self.ml.loadIt(model_path)
+            
+        else:
+            self.data = self.ml.loadIt(dataset_path)
         
         # define stopwords
         self.stop_words = None
@@ -36,14 +42,14 @@ class Model:
         
         # instantiate text processing pipline
         self.text_pipe = Pipeline([
-            ('vect', TfidfVectorizer(analyzer='word', binary=False, decode_error='strict', stop_words=self.stop_words, lowercase=True)),
+            ('vect', TfidfVectorizer(stop_words=self.stop_words, lowercase=True)),
             ('tfidf', TfidfTransformer(use_idf=True)),
-            ('clf', SGDClassifier()),           # accuracy at last test: 76%
+            ('clf', SGDClassifier(loss='modified_huber')),           # accuracy at last test: 76%
             #('clf', KNeighborsClassifier()),   # accuracy at last test: 46%
             #('clf', RandomForestClassifier()), # accuracy at last test: 62%
             #('clf', MultinomialNB()),          # accuracy at last test: 54%
             #('clf', LinearRegression()),       # accuracy at last test: 70%
-        ], memory=None)
+        ])
         
         #fit model with training data
         self.text_pipe.fit(self.X_train, self.y_train)
@@ -68,8 +74,21 @@ class Model:
             'best_parameters': search.best_params_
         }
         
-    def predict_custom(self, text):        
+    def predict_custom(self, text):
         return self.text_pipe.predict([text])
+    
+    def predict_probability(self, text):
+        return self.text_pipe.predict_proba([text])
+    
+    def get_genres(self):
+         return self.text_pipe.named_steps['clf'].classes_
+     
+    def predict_plus_accuracy(self, text):
+        probas = self.predict_probability(text)
+        genres = self.get_genres()
+        max_index = numpy.argmax(probas)
+        return genres[max_index], probas[0][max_index]
+        
     
     def predict_test_data(self):
         return self.text_pipe.predict(self.X_test)

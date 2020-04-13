@@ -7,26 +7,39 @@ Created on Sat Apr 11 23:21:44 2020
 
 from model import Model
 import webbrowser, os, API
+from modelLoader import fileManager
 
-print("Instantiating model...")
-mdl = Model(stop_words=False)
+fm = fileManager()
 
-print("Training model...")
-mdl.train()
 
-print("Running tests...")
-for k, v in mdl.test().items():
-    print(k + ': ' + str(v))
+train_fresh = input('Do you want to train the model now? [y/n] ')
+
+if train_fresh == 'y':
+    print("Instantiating model...")
+    modelObj = Model(stop_words=False)
+    
+    print("Training model...")
+    modelObj.train()
+    mdl = modelObj.get_pipe()
+    
+    print("Running tests...")
+    for k, v in modelObj.test().items():
+        print(k + ': ' + str(v))
+        
+    print("Pickling the model...")
+    modelObj.ml.zipIt(modelObj.get_pipe(), './Models/demonstration')
+        
+else:
+    mdl = fm.loadIt("./Models/demonstration.gz")
+    modelObj = Model(model_path='./Models/demonstration.gz')
+
 
 body = input("Enter a body of text here for genre prediction:\n")
-print(mdl.predict_custom(body))
-
-print("Pickling the model...")
-mdl.ml.zipIt(mdl.get_pipe(), './Models/demonstration')
+print(modelObj.predict_plus_accuracy(body))
 
 print("Opening GUI page...")
 webbrowser.open('file://' + os.path.realpath("index.html"))
 
 print("Starting API...")
-model = mdl.get_pipe()
+model = mdl
 API.app.run(debug=False)
