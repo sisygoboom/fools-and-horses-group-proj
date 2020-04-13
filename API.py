@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import modelLoader as fl
+from model import Model
 
 
 load = fl.fileManager()
@@ -10,21 +11,19 @@ app= Flask(__name__)
 cors = CORS(app)
 
 #load th previously trained model from file 
-model = load.loadIt("./Models/version4.gz")
+model = Model(model_path="./Models/demonstration.gz")
 
 #predict is the end point, decorator
 @app.route('/prediction', methods=["POST"])
 def predict_genre():
     if request.method == 'POST':
         movie_plot = request.form['plot']
-        #make the raw document data a liist 
-        movie_plot = [movie_plot]
         
         #make prediction with model
-        pred = model.predict(movie_plot)
+        pred, accuracy = model.predict_plus_accuracy(movie_plot)
         #convert from numpy array to list 
         pred = pred.tolist()
-        response = jsonify('genre_prediction', pred)
+        response = jsonify({'genre_prediction': pred, 'accuracy': accuracy})
         response.headers.add('Access-Control-Allow-Origin', '*')
         #send json result
         return response

@@ -46,7 +46,8 @@
                 type: 'post',
                 data: {plot},
                 success: (res) => {
-                    $('#response').html(res[1][0])
+                    console.log(res);
+                    $('#response').html(res['genre_prediction'] + ' = ' + (res['accuracy']*100).toFixed(3) + '%')
                 }
             })
         });
