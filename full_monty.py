@@ -40,5 +40,4 @@ print("Opening GUI page...")
 webbrowser.open('file://' + os.path.realpath("index.html"))
 
 print("Starting API...")
-model = mdl
 API.app.run(debug=False)
