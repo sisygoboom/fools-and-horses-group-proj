@@ -14,14 +14,19 @@ warnings.filterwarnings('ignore')
 from modelLoader import fileManager
 
 class Model:
-    def __init__(self, dataset_path="./Data/balancedData.pickle", model_path=None, stop_words=True, exclude_fnames=True):
+    def __init__(self, dataset_path="./Data/balancedData.pickle", model_path=None, stop_words=False, exclude_fnames=True, test_size=0.2):
         self.ml = fileManager()
         
         if model_path != None:
             self.text_pipe = self.ml.loadIt(model_path)
             
-        else:
-            self.data = self.ml.loadIt(dataset_path)
+        self.data = self.ml.loadIt(dataset_path)
+        # separate training and testing data
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+            self.data.Plot, 
+            self.data.Genre, 
+            test_size=test_size, 
+            random_state=0)
         
         # define stopwords
         self.stop_words = None
@@ -32,13 +37,7 @@ class Model:
                     firstnames = f.read().splitlines()
                 self.stop_words.union(firstnames)
         
-    def train(self, test_size=0.2):
-        # separate training and testing data
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.data.Plot, 
-            self.data.Genre, 
-            test_size=test_size, 
-            random_state=0)
+    def train(self):
         
         # instantiate text processing pipline
         self.text_pipe = Pipeline([
@@ -60,7 +59,7 @@ class Model:
     def test(self):
         # Evaluate the performance on test set
         grid_params = {
-            'vect__stop_words': [None, 'english'],
+            'vect__stop_words': [None, 'english', self.stop_words],
             'tfidf__use_idf': (True, False),
         }
         search = GridSearchCV(self.text_pipe, grid_params)
