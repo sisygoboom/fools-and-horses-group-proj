@@ -7,10 +7,6 @@ Created on Sat Apr 11 23:21:44 2020
 
 from model import Model
 import webbrowser, os, API
-from modelLoader import fileManager
-
-fm = fileManager()
-
 
 train_fresh = input('Do you want to train the model now? [y/n] ')
 
@@ -29,7 +25,6 @@ if train_fresh == 'y':
     modelObj.ml.zipIt(modelObj.get_pipe(), './Models/demonstration')
         
 else:
-    mdl = fm.loadIt("./Models/demonstration.gz")
     modelObj = Model(model_path='./Models/demonstration.gz')
 
 
