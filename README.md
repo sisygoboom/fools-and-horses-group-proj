@@ -13,7 +13,10 @@ Import the environment used for running our code:
 
 Run the demo script through the environment:
 
-`conda run -n ai_gproj -v python full_monty.py`
+```
+conda activate ai_gproj
+python full_monty.py
+```
 
 ##### Python/PIP:
 Import the dependancies:
