@@ -94,6 +94,7 @@ mdl.ml.zipIt(pipe, "/PATH/PIPE_NAME")
 td = mdl.test()
 print(td)
 ```
+note: If you instantiated the model with a pre-trained pipeline, this method will not work unless you also instantiated with the matching dataset
 
 ---
 
