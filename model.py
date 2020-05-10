@@ -47,7 +47,7 @@ class Model:
             #('clf', KNeighborsClassifier()),              # accuracy at last test: 46%
             #('clf', RandomForestClassifier()),            # accuracy at last test: 62%
             #('clf', MultinomialNB()),                     # accuracy at last test: 54%
-            #('clf', LinearRegression()),                  # accuracy at last test: 70%
+            #('clf', LogisticRegression()),                  # accuracy at last test: 70%
         ])
         
         #fit model with training data
