@@ -14,6 +14,10 @@ cors = CORS(app)
 #load the trained model from file 
 model = Model(model_path="./Models/demonstration.gz")
 
+@app.route('/', methods=["GET"])
+def index_page():
+    return "/prediction (POST plot=String)"
+
 #predict is the end point, decorator
 @app.route('/prediction', methods=["POST"])
 def predict_genre():
@@ -52,6 +56,6 @@ def predict_genre():
 
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+    app.run(debug=False) 
     
 
