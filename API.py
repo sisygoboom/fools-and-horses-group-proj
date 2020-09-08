@@ -51,7 +51,6 @@ def predict_genre():
     #create a json object named response containing the prediction and accuracy    
     response = jsonify({'genre_prediction': pred, 'accuracy': accuracy})
     
-    response.headers.add('Access-Control-Allow-Origin', '*')
     #return json object response
     return response
 
